@@ -24,11 +24,13 @@ jobs:
 
       - name: Build with Maven
         run: |
-          #mvn -B package --file pom.xml
-          mvn dependency:tree -DoutputType=dot --batch-mode --non-recursive --file="pom.xml"
+          mvn -B package --file pom.xml
+          #mvn dependency:tree -DoutputType=dot --batch-mode --non-recursive --file="pom.xml"
 
       - name: Run tests
         run: mvn test
+      
+      - run: echo $JAVA_HOME
       
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/maven-3-jdk-11@master
