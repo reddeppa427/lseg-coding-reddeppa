@@ -27,22 +27,6 @@ jobs:
 
       - name: Run tests
         run: mvn test
-
-      # - name: Applying Exec Permissions
-      #   run: |
-      #     chmod +x ./gradlew
-
-      # - name: Build with Gradle
-      #   run: ./gradlew build
-
-      # - name: Run Tests
-      #   run: ./gradlew test
-
-  scan:
-    name: Security and Quality Scan
-    runs-on: ubuntu-latest
-    needs: build
-    steps:      
       
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/maven-3-jdk-11@master
@@ -56,6 +40,35 @@ jobs:
         uses: github/codeql-action/upload-sarif@v1
         with:
           sarif_file: snyk.sarif
+
+      # - name: Applying Exec Permissions
+      #   run: |
+      #     chmod +x ./gradlew
+
+      # - name: Build with Gradle
+      #   run: ./gradlew build
+
+      # - name: Run Tests
+      #   run: ./gradlew test
+
+  # scan:
+  #   name: Security and Quality Scan
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   steps:      
+      
+  #     - name: Run Snyk to check for vulnerabilities
+  #       uses: snyk/actions/maven-3-jdk-11@master
+  #       continue-on-error: true # To make sure that SARIF upload gets called
+  #       env:
+  #         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+  #       with:
+  #         args: --sarif-file-output=snyk.sarif --severity-threshold=high
+
+  #     - name: Upload SARIF file to GitHub Security
+  #       uses: github/codeql-action/upload-sarif@v1
+  #       with:
+  #         sarif_file: snyk.sarif
 
   deploy-dev:
     name: Deploy to Dev
