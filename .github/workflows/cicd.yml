@@ -22,15 +22,21 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Applying Exec Permissions
-        run: |
-          chmod +x ./gradlew
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
 
-      - name: Build with Gradle
-        run: ./gradlew build
+      - name: Run tests
+        run: mvn test
 
-      - name: Run Tests
-        run: ./gradlew test
+      # - name: Applying Exec Permissions
+      #   run: |
+      #     chmod +x ./gradlew
+
+      # - name: Build with Gradle
+      #   run: ./gradlew build
+
+      # - name: Run Tests
+      #   run: ./gradlew test
 
   scan:
     name: Security and Quality Scan
