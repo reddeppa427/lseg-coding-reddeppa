@@ -22,6 +22,10 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
+      - name: Applying Exec Permissions
+        run: |
+          chmod +x ./gradlew
+
       - name: Build with Gradle
         run: ./gradlew build
 
