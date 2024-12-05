@@ -35,7 +35,7 @@ jobs:
       - run: echo $JAVA_HOME      
        
   scan:
-    name: Security and Quality Scan
+    name: Snyk Security Scan
     runs-on: ubuntu-latest
     needs: build
     steps:      
