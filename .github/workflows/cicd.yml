@@ -7,6 +7,7 @@ on:
       - development # For Dev environment
       - release # For QA environment
       - main # For Production environment
+permissions: write-all
 
 jobs:
   build:
