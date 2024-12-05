@@ -34,3 +34,8 @@ This repository contains Java code for a simple "Hello World" program. The proje
 - It is mandatory to raise a PR with at least one reviewer.
 - Pipeline level approvals are enabled, restricting deployments to the production environment without approvals from development leads.
 
+## Useful Links
+- **GitHub Repo**: https://github.com/reddeppa427/lseg-coding-reddeppa
+- **GitHub Security Code Scanning**: https://github.com/reddeppa427/lseg-coding-reddeppa/security/code-scanning
+- **Branch Protection Rules**: https://github.com/reddeppa427/lseg-coding-reddeppa/settings/branches
+
