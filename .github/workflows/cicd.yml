@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '11'
 
       - name: Build with Maven
         run: |
@@ -36,7 +36,8 @@ jobs:
         uses: snyk/actions/maven@master
         continue-on-error: true # To make sure that SARIF upload gets called
         env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}          
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}   
+          JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64       
         with:
           args: --sarif-file-output=snyk.sarif --severity-threshold=high
 
