@@ -21,6 +21,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '11'
+          cache: 'maven'
 
       - name: Build with Maven
         run: |
@@ -32,12 +33,20 @@ jobs:
            
       - run: echo $JAVA_HOME 
       
+      - uses: snyk/actions/setup@master
+      - uses: actions/setup-go@v1
+        with:
+          go-version: "1.13"
+      - name: Snyk test
+        run: snyk test
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/maven@master
         continue-on-error: true # To make sure that SARIF upload gets called
         env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}   
-          JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64       
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }} 
         with:
           args: --sarif-file-output=snyk.sarif --severity-threshold=high
 
