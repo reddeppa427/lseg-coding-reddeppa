@@ -1,7 +1,3 @@
-Sure, I can help with that! Here's a corrected and formatted version of your README file content:
-
----
-
 ## Project Overview
 
 This repository contains Java code for a simple "Hello World" program. The project includes a CI/CD pipeline with the following stages:
@@ -29,6 +25,9 @@ This repository contains Java code for a simple "Hello World" program. The proje
 - **Development Branch**: Deploys changes to the development environment.
 - **Release Branch**: Deploys changes to the QA environment.
 - **Main Branch**: Deploys changes to the production environment.
+
+## Secrets Management
+- The Snyk token is added to GitHub Secrets to secure the value from unauthorized access.
 
 ## Branch Protection Rules
 - Branch protection rules are enabled for the `development`, `release`, and `main` branches.
