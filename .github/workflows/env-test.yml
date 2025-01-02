@@ -27,5 +27,5 @@ jobs:
       - name: Use Environment-Specific Secrets
         run: |
           echo "Using secrets for ${{ github.event.inputs.environment }}"
-          echo "SECRET: ${{ secrets.USERNAME }}"
+          echo "VAR: ${{ vars.USERNAME }}"
           
