@@ -1,0 +1,31 @@
+name: Build and Deploy - ALL Env
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        required: true
+        default: dev
+        description: "Select environment for deployment"
+        options:
+          - dev
+          - test
+          - uat
+          - prod
+
+jobs:
+  BuildDeploy:
+    runs-on: ubuntu-latest
+
+    environment: ${{ github.event.inputs.environment }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Use Environment-Specific Secrets
+        run: |
+          echo "Using secrets for ${{ github.event.inputs.environment }}"
+          echo "SECRET: ${{ secrets.SECRET }}"
+          echo "DB_PASSWORD: ${{ secrets.DB_PASSWORD }}"
