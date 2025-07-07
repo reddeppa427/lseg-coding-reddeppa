@@ -27,7 +27,12 @@ jobs:
 
       - name: Build with Maven
         run: |
-          mvn -B package --file pom.xml          
+          mvn -B package --file pom.xml
+
+      - name: Simulate exposed secret (for testing only)
+        run: |
+          echo "AWS_SECRET_ACCESS_KEY=AKIA1234567890EXAMPLE" >> exposed-secrets.txt
+          cat exposed-secrets.txt
 
       - name: Run tests
         run: mvn test
