@@ -33,6 +33,7 @@ jobs:
         run: |
           echo "AWS_SECRET_ACCESS_KEY=AKIA1234567890EXAMPLE" >> exposed-secrets.txt
           cat exposed-secrets.txt
+          GITHUB_TOKEN = "gh_werxy2f4u5nnnghkllllkmdkbfn"
 
       - name: Run tests
         run: mvn test
