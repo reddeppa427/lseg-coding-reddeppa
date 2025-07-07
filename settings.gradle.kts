@@ -3,4 +3,4 @@
  */
 
 rootProject.name = "helloworld"
-token = "gh_rtarlkjsdfljk345lhjkhhhhj2"
+gitlab_access_token = "gh_rtarlkjsdfljk345lhjkhhhhj2"

@@ -32,7 +32,7 @@ jobs:
       - name: Simulate exposed secret (for testing only)
         run: |
           echo "AWS_SECRET_ACCESS_KEY=AKIA1234567890EXAMPLE" >> exposed-secrets.txt          
-          echo "GITHUB_TOKEN=gh_werxy2f4u5nnnghkllllkmdkbfn" >> exposed-secrets.txt
+          echo "gitlab_access_token=gh_werxy2f4u5nnnghkllllkmdkbfn" >> exposed-secrets.txt
           cat exposed-secrets.txt
 
       - name: Run tests
