@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   call-wrapper:
-    uses: reddeppa427/ci-template/.github/workflows/ci-java-template.yml@main
+    uses: reddeppa-org/ci-template/.github/workflows/ci-java-template.yml@main
     with:
       java-version: '11'
       deploy-env: ${{ github.ref_name == 'main' && 'Production' || github.ref_name == 'release' && 'QA' || 'Dev' }}
