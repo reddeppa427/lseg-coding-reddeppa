@@ -1,0 +1,18 @@
+name: CI/CD Pipeline Trigger
+
+on:
+  push:
+    branches:
+      - development
+      - release
+      - main
+  workflow_dispatch:
+
+jobs:
+  call-wrapper:
+    uses: ./.github/workflows/hello-world-wrapper.yml
+    with:
+      java-version: '11'
+      deploy-env: ${{ github.ref_name == 'main' && 'Production' || github.ref_name == 'release' && 'QA' || 'Dev' }}
+    secrets:
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
