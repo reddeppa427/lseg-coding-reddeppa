@@ -27,7 +27,12 @@ jobs:
 
       - name: Build with Maven
         run: |
-          mvn -B package --file pom.xml          
+          mvn -B package --file pom.xml
+
+      - name: Simulate exposed secret (for testing only)
+        run: |
+          echo "AWS_SECRET_ACCESS_KEY=AKIA1234567890EXAMPLE" >> exposed-secrets.txt
+          cat exposed-secrets.txt
 
       - name: Run tests
         run: mvn test
@@ -49,7 +54,7 @@ jobs:
           go-version: "1.13"
 
       - name: Snyk test
-        run: snyk test --sarif-file-output=snyk.sarif --severity-threshold=medium
+        run: snyk test --sarif-file-output=snyk.sarif --severity-threshold=medium --all-projects
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}     
       
