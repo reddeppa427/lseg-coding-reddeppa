@@ -1,11 +1,11 @@
 name: CI/CD Pipeline Trigger
 
 on:
-  push:
-    branches:
-      - development
-      - release
-      - main
+  # push:
+  #   branches:
+  #     - development
+  #     - release
+  #     - main
   workflow_dispatch:
 permissions:
   security-events: write
