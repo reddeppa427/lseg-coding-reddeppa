@@ -1,22 +1,21 @@
-name: CI/CD Pipeline Trigger
+name: MyJavaApp
 
 on:
-  # push:
-  #   branches:
-  #     - development
-  #     - release
-  #     - main
   workflow_dispatch:
+
 permissions:
   security-events: write
   contents: read
 
-
 jobs:
-  call-wrapper:
-    uses: reddeppa-org/ci-template/.github/workflows/ci-java-template.yml@main
+  build:
+    uses: reddeppa-org/ci-template/.github/workflows/java_build_reusable_template.yml@main
     with:
-      java-version: '11'
-      deploy-env: ${{ github.ref_name == 'main' && 'Production' || github.ref_name == 'release' && 'QA' || 'Dev' }}
-    secrets:
-      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      use_maven: true           # or false, as needed
+      use_gradle: false         # or true, as needed
+      java_version: '17'        # or any version you want
+      java_distribution: 'temurin' # or 'zulu', 'adopt', etc.
+      application_name: 'my-java-app'
+      branch: 'main'            # or any branch you want to build
+      runner: 'windows-latest'  # or 'ubuntu-latest', etc.
+      environment: 'dev'           # or set to your environment name if needed
