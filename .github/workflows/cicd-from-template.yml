@@ -7,17 +7,29 @@ permissions:
   security-events: write
   contents: read
 
+env:
+  USE_MAVEN: true
+  USE_GRADLE: false
+  JAVA_VERSION: '17'
+  JAVA_DISTRIBUTION: 'temurin'
+  APPLICATION_NAME: 'my-java-app'
+  BRANCH: 'development'
+  RUNNER: 'windows-latest'
+  ENVIRONMENT: 'dev'
+  RUN_TESTS: false
+  CUSTOM_SCRIPT: 'echo Hello from wrapper! Build Completed Successfully Verify the Artifacts'
+
 jobs:
   build:
     uses: reddeppa-org/ci-template/.github/workflows/java_build_reusable_template.yml@main
     with:
-      use_maven: true           # or false, as needed
-      use_gradle: false         # or true, as needed
-      java_version: '17'        # or any version you want
-      java_distribution: 'temurin' # or 'zulu', 'adopt', etc.
-      application_name: 'my-java-app'
-      branch: 'development'            # or any branch you want to build
-      runner: 'windows-latest'  # or 'ubuntu-latest', etc.
-      environment: 'dev'           # or set to your environment name if needed
-      run_tests: false        # or set to your environment name if needed      
-      custom_script: 'echo Hello from wrapper! Build Completed Successfully Verify the Artifacts'
+      use_maven: ${{ env.USE_MAVEN }}
+      use_gradle: ${{ env.USE_GRADLE }}
+      java_version: ${{ env.JAVA_VERSION }}
+      java_distribution: ${{ env.JAVA_DISTRIBUTION }}
+      application_name: ${{ env.APPLICATION_NAME }}
+      branch: ${{ env.BRANCH }}
+      runner: ${{ env.RUNNER }}
+      environment: ${{ env.ENVIRONMENT }}
+      run_tests: ${{ env.RUN_TESTS }}
+      custom_script: ${{ env.CUSTOM_SCRIPT }}
