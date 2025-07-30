@@ -19,4 +19,5 @@ jobs:
       branch: 'development'            # or any branch you want to build
       runner: 'windows-latest'  # or 'ubuntu-latest', etc.
       environment: 'dev'           # or set to your environment name if needed
-      run_tests: false        # or set to your environment name if needed
+      run_tests: false        # or set to your environment name if needed      
+      custom_script: 'echo Hello from wrapper! Build Completed Successfully Verify the Artifacts'
