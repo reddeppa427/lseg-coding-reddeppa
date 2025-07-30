@@ -16,6 +16,6 @@ jobs:
       java_version: '17'        # or any version you want
       java_distribution: 'temurin' # or 'zulu', 'adopt', etc.
       application_name: 'my-java-app'
-      branch: 'main'            # or any branch you want to build
+      branch: 'development'            # or any branch you want to build
       runner: 'windows-latest'  # or 'ubuntu-latest', etc.
       environment: 'dev'           # or set to your environment name if needed
