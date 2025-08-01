@@ -39,6 +39,7 @@ jobs:
     with:
       app_name: myapp                # Replace with your application name
       war_path: ./target/myapp.war   # Replace with the path to your WAR file
+    secrets:
       remote_host: ${{ secrets.REMOTE_HOST }}         # Store in GitHub secrets
       remote_user: ${{ secrets.REMOTE_USER }}         # Store in GitHub secrets
       remote_password: ${{ secrets.REMOTE_PASSWORD }} # Store in GitHub secrets
