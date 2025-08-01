@@ -24,6 +24,7 @@ jobs:
 
   
   security-gate:
+    needs: build
     uses: reddeppa-org/ci-template/.github/workflows/gate_security.yml@main
     with:
       repo_owner: "${{ github.repository_owner }}"
@@ -32,11 +33,12 @@ jobs:
       pat_token: ${{ secrets.PAT_TOKEN }}
   
   
-  # deploy:
-  #   uses: reddeppa-org/ci-template/.github/workflows/java_release_reusable_template.yml@main
-  #   with:
-  #     app_name: myapp                # Replace with your application name
-  #     war_path: ./target/myapp.war   # Replace with the path to your WAR file
-  #     remote_host: ${{ secrets.REMOTE_HOST }}         # Store in GitHub secrets
-  #     remote_user: ${{ secrets.REMOTE_USER }}         # Store in GitHub secrets
-  #     remote_password: ${{ secrets.REMOTE_PASSWORD }} # Store in GitHub secrets
+  deploy:
+    needs: security-gate
+    uses: reddeppa-org/ci-template/.github/workflows/java_release_reusable_template.yml@main
+    with:
+      app_name: myapp                # Replace with your application name
+      war_path: ./target/myapp.war   # Replace with the path to your WAR file
+      remote_host: ${{ secrets.REMOTE_HOST }}         # Store in GitHub secrets
+      remote_user: ${{ secrets.REMOTE_USER }}         # Store in GitHub secrets
+      remote_password: ${{ secrets.REMOTE_PASSWORD }} # Store in GitHub secrets
