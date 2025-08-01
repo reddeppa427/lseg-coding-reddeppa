@@ -24,7 +24,7 @@ jobs:
 
   
   security-gate:
-    uses: reddeppa-org/ci-template/.github/workflows/gate-security.yml@main
+    uses: reddeppa-org/ci-template/.github/workflows/gate_security.yml@main
     with:
       repo_owner: "${{ github.repository_owner }}"
       repo_name: "${{ github.repository }}"
