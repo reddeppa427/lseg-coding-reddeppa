@@ -39,6 +39,7 @@ jobs:
     with:
       app_name: myapp
       war_path: ./target/myapp.war
+    secrets:
       remote_host: ${{ secrets.REMOTE_HOST }}
       remote_user: ${{ secrets.REMOTE_USER }}
       remote_password: ${{ secrets.REMOTE_PASSWORD }}
@@ -50,6 +51,7 @@ jobs:
     with:
       app_name: myapp
       war_path: ./target/myapp.war
+    secrets:
       remote_host: ${{ secrets.REMOTE_HOST }}
       remote_user: ${{ secrets.REMOTE_USER }}
       remote_password: ${{ secrets.REMOTE_PASSWORD }}
@@ -61,6 +63,7 @@ jobs:
     with:
       app_name: myapp
       war_path: ./target/myapp.war
+    secrets:
       remote_host: ${{ secrets.REMOTE_HOST }}
       remote_user: ${{ secrets.REMOTE_USER }}
       remote_password: ${{ secrets.REMOTE_PASSWORD }}
@@ -72,6 +75,7 @@ jobs:
     with:
       app_name: myapp
       war_path: ./target/myapp.war
+    secrets:
       remote_host: ${{ secrets.REMOTE_HOST }}
       remote_user: ${{ secrets.REMOTE_USER }}
       remote_password: ${{ secrets.REMOTE_PASSWORD }}
