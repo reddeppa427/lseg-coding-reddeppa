@@ -29,7 +29,7 @@ jobs:
       repo_owner: "${{ github.repository_owner }}"
       repo_name: "${{ github.repository }}"
     secrets:
-      github_token: ${{ secrets.GITHUB_TOKEN }}
+      github_token: ${{ secrets.PAT_TOKEN }}
   
   
   # deploy:
