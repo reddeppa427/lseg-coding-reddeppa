@@ -48,7 +48,7 @@ jobs:
     
 
   deploy-test:
-    needs: security-gate
+    needs: security-gate, deploy-dev
     if: github.ref == 'refs/heads/development'
     uses: reddeppa-org/ci-template/.github/workflows/java_release_reusable_template.yml@main
     with:
