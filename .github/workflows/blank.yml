@@ -42,7 +42,7 @@ jobs:
           all_alerts="[]"
           echo "repos/$repo/code-scanning/alerts"
           while true; do
-            response=$(gh api "repos/$repo/code-scanning/alerts" --paginate -H "Accept: application/vnd.github+json" -F state=open -F per_page=$per_page -F page=$page --jq '.')
+            response=$( gh api -X get "repos/reddeppa-org/sample-java/code-scanning/alerts" --paginate -H "Accept: application/vnd.github+json" -F state=open -F per_page=100 -F page=1 --jq '.' )
 
             # Ensure it's a JSON array
             if ! echo "$response" | jq -e 'type == "array"' > /dev/null; then
