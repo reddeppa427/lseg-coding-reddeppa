@@ -30,16 +30,49 @@ jobs:
       repo_owner: "${{ github.repository_owner }}"
       repo_name: "${{ github.repository }}"
     secrets:
-      pat_token: ${{ secrets.PAT_TOKEN }}
+      pat_token: ${{ secrets.PAT_TOKEN }} 
   
-  
-  deploy:
-    needs: security-gate
+   
+  deploy-dev:
+    if: github.ref == 'refs/heads/development'
     uses: reddeppa-org/ci-template/.github/workflows/java_release_reusable_template.yml@main
     with:
-      app_name: myapp                # Replace with your application name
-      war_path: ./target/myapp.war   # Replace with the path to your WAR file
-    secrets:
-      remote_host: ${{ secrets.REMOTE_HOST }}         # Store in GitHub secrets
-      remote_user: ${{ secrets.REMOTE_USER }}         # Store in GitHub secrets
-      remote_password: ${{ secrets.REMOTE_PASSWORD }} # Store in GitHub secrets
+      app_name: myapp
+      war_path: ./target/myapp.war
+      remote_host: ${{ secrets.REMOTE_HOST }}
+      remote_user: ${{ secrets.REMOTE_USER }}
+      remote_password: ${{ secrets.REMOTE_PASSWORD }}
+    environment: dev
+
+  deploy-test:
+    if: github.ref == 'refs/heads/development'
+    uses: reddeppa-org/ci-template/.github/workflows/java_release_reusable_template.yml@main
+    with:
+      app_name: myapp
+      war_path: ./target/myapp.war
+      remote_host: ${{ secrets.REMOTE_HOST }}
+      remote_user: ${{ secrets.REMOTE_USER }}
+      remote_password: ${{ secrets.REMOTE_PASSWORD }}
+    environment: test
+
+  deploy-stage:
+    if: startsWith(github.ref, 'refs/heads/release/')
+    uses: reddeppa-org/ci-template/.github/workflows/java_release_reusable_template.yml@main
+    with:
+      app_name: myapp
+      war_path: ./target/myapp.war
+      remote_host: ${{ secrets.REMOTE_HOST }}
+      remote_user: ${{ secrets.REMOTE_USER }}
+      remote_password: ${{ secrets.REMOTE_PASSWORD }}
+    environment: stage
+
+  deploy-prod:
+    if: startsWith(github.ref, 'refs/heads/release/')
+    uses: reddeppa-org/ci-template/.github/workflows/java_release_reusable_template.yml@main
+    with:
+      app_name: myapp
+      war_path: ./target/myapp.war
+      remote_host: ${{ secrets.REMOTE_HOST }}
+      remote_user: ${{ secrets.REMOTE_USER }}
+      remote_password: ${{ secrets.REMOTE_PASSWORD }}
+    environment: prod
