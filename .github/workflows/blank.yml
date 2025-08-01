@@ -32,7 +32,7 @@ jobs:
         run: |
           echo "Checking CodeQL alerts with GitHub CLI..."
 
-          gh auth login --with-token < ${{ secrets.pat_token }}
+          #gh auth login --with-token < ${{ secrets.pat_token }}
 
           echo "login Successfully"
 
@@ -42,12 +42,7 @@ jobs:
           all_alerts="[]"
           echo "repos/$repo/code-scanning/alerts"
           while true; do
-            response=$(gh api "repos/$repo/code-scanning/alerts" \
-              --jq '.' \
-              --paginate -H "Accept: application/vnd.github+json" \
-              -F state=open \
-              -F per_page=$per_page \
-              -F page=$page)
+            response=$(gh api "repos/$repo/code-scanning/alerts" --paginate -H "Accept: application/vnd.github+json" -F state=open -F per_page=$per_page -F page=$page --jq '.')
 
             # Ensure it's a JSON array
             if ! echo "$response" | jq -e 'type == "array"' > /dev/null; then
