@@ -36,7 +36,7 @@ jobs:
 
           echo "login Successfully"
 
-          repo="${{ inputs.repo_name }}"
+          repo="reddeppa-org/sample-java"
           per_page=100
           page=1
           all_alerts="[]"
