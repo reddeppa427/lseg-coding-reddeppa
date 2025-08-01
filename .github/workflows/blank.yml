@@ -1,0 +1,76 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "development" branch
+  push:
+    branches: [ "development" ]
+  pull_request:
+    branches: [ "development" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4      
+
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        env:
+         GH_TOKEN: ${{ secrets.pat_token }}
+        run: |
+          echo "Checking CodeQL alerts with GitHub CLI..."
+
+          #gh auth login --with-token < ${{ secrets.pat_token }}
+
+          repo="${{ inputs.repo_name }}"
+          per_page=100
+          page=1
+          all_alerts="[]"
+          echo "repos/$repo/code-scanning/alerts"
+          while true; do
+            response=$(gh api "repos/$repo/code-scanning/alerts" \
+              --jq '.' \
+              --paginate -H "Accept: application/vnd.github+json" \
+              -F state=open \
+              -F per_page=$per_page \
+              -F page=$page)
+
+            # Ensure it's a JSON array
+            if ! echo "$response" | jq -e 'type == "array"' > /dev/null; then
+              echo "⚠️ Invalid response. Here's the message:"
+              echo "$response" | jq '.message // "No message available."' || echo "$response"
+              exit 1
+            fi
+
+            # Merge with previous alerts
+            all_alerts=$(jq -s '.[0] + .[1]' <(echo "$all_alerts") <(echo "$response"))
+
+            # Break if last page
+            if [ "$(echo "$response" | jq 'length')" -lt "$per_page" ]; then
+              break
+            fi
+
+            ((page++))
+          done
+
+          # Filter alerts with medium+ severity
+          echo "$all_alerts" | jq '[.[] | select(.rule.severity == "medium" or .rule.severity == "high" or .rule.severity == "critical")]' > codeql_alerts.json
+
+          count=$(jq length codeql_alerts.json)
+          echo "Found $count medium+ severity CodeQL alerts"
+          if [ "$count" -gt 0 ]; then
+            echo "❌ Failing due to CodeQL vulnerabilities"
+            exit 1
+          fi
