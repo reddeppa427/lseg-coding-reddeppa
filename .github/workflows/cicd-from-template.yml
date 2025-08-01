@@ -34,6 +34,7 @@ jobs:
   
    
   deploy-dev:
+    environment: dev
     if: github.ref == 'refs/heads/development'
     uses: reddeppa-org/ci-template/.github/workflows/java_release_reusable_template.yml@main
     with:
@@ -43,9 +44,10 @@ jobs:
       remote_host: ${{ secrets.REMOTE_HOST }}
       remote_user: ${{ secrets.REMOTE_USER }}
       remote_password: ${{ secrets.REMOTE_PASSWORD }}
-    environment: dev
+    
 
   deploy-test:
+    environment: test
     if: github.ref == 'refs/heads/development'
     uses: reddeppa-org/ci-template/.github/workflows/java_release_reusable_template.yml@main
     with:
@@ -55,9 +57,10 @@ jobs:
       remote_host: ${{ secrets.REMOTE_HOST }}
       remote_user: ${{ secrets.REMOTE_USER }}
       remote_password: ${{ secrets.REMOTE_PASSWORD }}
-    environment: test
+    
 
   deploy-stage:
+    environment: stage
     if: startsWith(github.ref, 'refs/heads/release/')
     uses: reddeppa-org/ci-template/.github/workflows/java_release_reusable_template.yml@main
     with:
@@ -67,9 +70,10 @@ jobs:
       remote_host: ${{ secrets.REMOTE_HOST }}
       remote_user: ${{ secrets.REMOTE_USER }}
       remote_password: ${{ secrets.REMOTE_PASSWORD }}
-    environment: stage
+    
 
   deploy-prod:
+    environment: prod
     if: startsWith(github.ref, 'refs/heads/release/')
     uses: reddeppa-org/ci-template/.github/workflows/java_release_reusable_template.yml@main
     with:
@@ -79,4 +83,4 @@ jobs:
       remote_host: ${{ secrets.REMOTE_HOST }}
       remote_user: ${{ secrets.REMOTE_USER }}
       remote_password: ${{ secrets.REMOTE_PASSWORD }}
-    environment: prod
+    
