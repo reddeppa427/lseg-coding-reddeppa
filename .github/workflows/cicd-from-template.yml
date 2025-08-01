@@ -34,12 +34,13 @@ jobs:
   
    
   deploy-dev:
-    environment: dev
+    needs: security-gate
     if: github.ref == 'refs/heads/development'
     uses: reddeppa-org/ci-template/.github/workflows/java_release_reusable_template.yml@main
     with:
       app_name: myapp
       war_path: ./target/myapp.war
+      env_name: dev
     secrets:
       remote_host: ${{ secrets.REMOTE_HOST }}
       remote_user: ${{ secrets.REMOTE_USER }}
@@ -47,12 +48,13 @@ jobs:
     
 
   deploy-test:
-    environment: test
+    needs: security-gate
     if: github.ref == 'refs/heads/development'
     uses: reddeppa-org/ci-template/.github/workflows/java_release_reusable_template.yml@main
     with:
       app_name: myapp
       war_path: ./target/myapp.war
+      env_name: test
     secrets:
       remote_host: ${{ secrets.REMOTE_HOST }}
       remote_user: ${{ secrets.REMOTE_USER }}
@@ -60,12 +62,13 @@ jobs:
     
 
   deploy-stage:
-    environment: stage
+    needs: security-gate
     if: startsWith(github.ref, 'refs/heads/release/')
     uses: reddeppa-org/ci-template/.github/workflows/java_release_reusable_template.yml@main
     with:
       app_name: myapp
       war_path: ./target/myapp.war
+      env_name: stage
     secrets:
       remote_host: ${{ secrets.REMOTE_HOST }}
       remote_user: ${{ secrets.REMOTE_USER }}
@@ -73,12 +76,13 @@ jobs:
     
 
   deploy-prod:
-    environment: prod
+    needs: security-gate
     if: startsWith(github.ref, 'refs/heads/release/')
     uses: reddeppa-org/ci-template/.github/workflows/java_release_reusable_template.yml@main
     with:
       app_name: myapp
       war_path: ./target/myapp.war
+      env_name: prod
     secrets:
       remote_host: ${{ secrets.REMOTE_HOST }}
       remote_user: ${{ secrets.REMOTE_USER }}
